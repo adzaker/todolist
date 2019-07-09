@@ -63,10 +63,18 @@ export function details(state = ds, action){
       console.log(action.value);
       console.log('newState');
       console.log(newState);
+      console.log(newState.records.length);
       if (action.value) {
-        let newRecords = newState.records.filter((record) => {
-          return record.id - 0  === action.value - 0;
-        });
+        let newRecords;
+        if (!newState.records.length) {
+          newRecords = ds.records.filter((record) => {
+            return record.id - 0  === action.value - 0;
+          });
+        } else {
+          newRecords = newState.records.filter((record) => {
+            return record.id - 0  === action.value - 0;
+          });
+        }
         newState.records = [...newRecords];
       } else {
         newState = ds;
