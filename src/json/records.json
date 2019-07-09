@@ -1,0 +1,202 @@
+{
+  "records": [
+    {
+      "id": 1,
+      "name": "Пример 1",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 2,
+      "name": "Пример 2",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 3,
+      "name": "Пример 3",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 4,
+      "name": "Пример 4",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 5,
+      "name": "Пример 5",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 6,
+      "name": "Пример 6",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 7,
+      "name": "Пример 7",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 8,
+      "name": "Пример 8",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 9,
+      "name": "Пример 9",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 10,
+      "name": "Пример 10",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 11,
+      "name": "Пример 11",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 12,
+      "name": "Пример 12",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 13,
+      "name": "Пример 1",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 14,
+      "name": "Пример 2",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 15,
+      "name": "Пример 3",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 16,
+      "name": "Пример 4",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 17,
+      "name": "Пример 5",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 18,
+      "name": "Пример 6",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 19,
+      "name": "Пример 7",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 20,
+      "name": "Пример 8",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 21,
+      "name": "Пример 9",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 22,
+      "name": "Пример 10",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 23,
+      "name": "Пример 11",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 24,
+      "name": "Пример 12",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 25,
+      "name": "Пример 1",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 26,
+      "name": "Пример 2",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 27,
+      "name": "Пример 3",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 28,
+      "name": "Пример 4",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 29,
+      "name": "Пример 5",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 30,
+      "name": "Пример 6",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 31,
+      "name": "Пример 7",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 32,
+      "name": "Пример 7",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "id": 33,
+      "name": "Пример 8",
+      "isDisable": false,
+      "description": "Описание"
+    }
+  ]
+}
