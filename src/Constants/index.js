@@ -1,5 +1,3 @@
-import { records } from "../json/records";
-
 const ADD_CASE = 'ADD_CASE';
 const SET_VALUE = 'SET_VALUE';
 const SWITCH_DISABLE = 'SWITCH_DISABLE';

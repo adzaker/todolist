@@ -2,10 +2,6 @@ import React from "react";
 import { connect } from 'react-redux';
 
 class CaseDetail extends React.Component {
-  constructor() {
-    super();
-  }
-
   showIsDisable(isDisable) {
     if (!isDisable) {
       return <div style={{color: 'red'}}>Не выполнен</div>;

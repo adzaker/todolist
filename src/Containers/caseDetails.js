@@ -1,14 +1,10 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { showDetails, changeDescription } from "../Actions";
+import { changeDescription } from "../Actions";
 import CaseDetail from "./caseDetail";
 import { Link } from "react-router-dom";
 
 class CaseDetails extends React.Component {
-  constructor() {
-    super();
-  }
-
   changeDescription(e) {
     let {dispatch} = this.props;
     let id = this.props.records.currentRecord.id;

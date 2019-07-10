@@ -5,6 +5,9 @@ export function todo(state = defaultState, action){
   let newState = {...state};
   switch (action.type) {
     case types.ADD_CASE:
+      if (!action.value.length) {
+        return newState;
+      }
       newState.records.push({
         id: newState.counter,
         name: action.value,
@@ -66,8 +69,6 @@ export function todo(state = defaultState, action){
       newState.maxItemsOnPage = action.value;
       newState.activePage = 1;
       return newState;
-    case types.SWITCH_PRELOADER:
-
     default:
       return state
   }

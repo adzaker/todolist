@@ -1,10 +1,5 @@
 import React from "react";
-import ListItem from "./listItem";
 class TableList extends React.Component {
-  constructor() {
-    super();
-  };
-
   render () {
     return (
       <div className={`caseList -recordsCount-${this.props.maxItemsOnPage}`}>

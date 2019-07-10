@@ -9,10 +9,6 @@ import preloaderUrl from '../loader.gif';
 import { addCase, setValue, switchDisable, deleteItem, changePage, loadFromServer, clearTable, showDetails, changeDetailsCount } from '../Actions';
 
 class TodoList extends React.Component {
-  constructor() {
-    super();
-  }
-
   addCase(e) {
     e.preventDefault();
     const input = e.target.parentElement.querySelector('input');
