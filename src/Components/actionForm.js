@@ -7,7 +7,7 @@ class ActionForm extends React.Component {
   render () {
     return (
       <form>
-        <input type="text" placeholder="Новое дело" id="newCase" onChange={this.props.setValue} value={this.props.currentWord}/>
+        <input type="text" placeholder="Новое дело" id="newCase"/>
         <button type="submit" onClick={this.props.addCase}>Добавить</button>
       </form>
     )

@@ -1,22 +1,16 @@
 import { defaultState, types } from "../Constants";
 import { combineReducers } from 'redux';
-import { records } from "../json/records";
 
 export function todo(state = defaultState, action){
   let newState = {...state};
   switch (action.type) {
     case types.ADD_CASE:
-      let newCase = newState.currentWord;
-      if (newCase.length === 0) {
-        return newState;
-      }
       newState.records.push({
         id: newState.counter,
-        name: newCase,
+        name: action.value,
         isDisable: false,
         description: '',
       });
-      newState.currentWord = '';
       newState.counter = newState.counter + 1;
       newState.activePage = Math.ceil(newState.records.length / newState.maxItemsOnPage);
       return newState;
@@ -36,12 +30,23 @@ export function todo(state = defaultState, action){
       newState.activePage = action.value;
       return newState;
     case types.LOAD_FROM_SERVER:
-      newState.records = [...records];
-      newState.counter = newState.records.length + 1;
+      const receivedRecords = [...action.records];
+      let counter = newState.counter;
+      let oldRecords = [];
+      oldRecords = [...newState.records];
+      let newRecords = receivedRecords.map((record) => {
+        const r = {...record};
+        r.id = counter;
+        counter++;
+        return r;
+      });
+      newState.records = [...oldRecords, ...newRecords];
+      newState.counter = counter;
       return newState;
     case types.CLEAR_TABLE:
       newState.records = [];
       newState.activePage = 1;
+      newState.counter = 1;
       return newState;
     case types.SHOW_DETAILS:
       if (action.value) {
@@ -61,6 +66,8 @@ export function todo(state = defaultState, action){
       newState.maxItemsOnPage = action.value;
       newState.activePage = 1;
       return newState;
+    case types.SWITCH_PRELOADER:
+
     default:
       return state
   }

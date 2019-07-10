@@ -10,10 +10,10 @@ const CLEAR_TABLE = 'CLEAR_TABLE';
 const SHOW_DETAILS = 'SHOW_DETAILS';
 const CHANGE_DESCRIPTION = 'CHANGE_DESCRIPTION';
 const CHANGE_DETAILS_COUNT = 'CHANGE_DETAILS_COUNT';
+const SWITCH_PRELOADER = 'SWITCH_PRELOADER';
 
 export const defaultState = {
   records: [],
-  currentWord: '',
   activePage: document.location.hash.length ? document.location.hash.slice(1) - 0 : 1,
   maxItemsOnPage: 10,
   counter: 1,
@@ -32,4 +32,5 @@ export const types = {
   SHOW_DETAILS,
   CHANGE_DESCRIPTION,
   CHANGE_DETAILS_COUNT,
+  SWITCH_PRELOADER,
 };

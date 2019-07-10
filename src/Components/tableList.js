@@ -6,7 +6,6 @@ class TableList extends React.Component {
   };
 
   render () {
-    console.log(this.props);
     return (
       <div className={`caseList -recordsCount-${this.props.maxItemsOnPage}`}>
         <table className={`caseList__table`}>

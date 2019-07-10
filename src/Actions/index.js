@@ -1,8 +1,9 @@
 import { types } from '../Constants'
 
-export function addCase() {
+export function addCase(value) {
   return {
-    type: types.ADD_CASE
+    type: types.ADD_CASE,
+    value
   }
 }
 
@@ -34,9 +35,10 @@ export function changePage(value) {
   }
 }
 
-export function loadFromServer() {
+export function loadFromServer(records) {
   return {
     type: types.LOAD_FROM_SERVER,
+    records
   }
 }
 
@@ -65,5 +67,12 @@ export function changeDetailsCount(value) {
   return {
     type: types.CHANGE_DETAILS_COUNT,
     value
+  }
+}
+
+export function switchPreloader(url) {
+  return {
+    type: types.SWITCH_PRELOADER,
+    url
   }
 }

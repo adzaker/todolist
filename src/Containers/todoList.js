@@ -5,6 +5,7 @@ import TableList from "../Components/tableList";
 import Pagination from "../Components/Pagination";
 import PaginationItem from "../Components/PaginationItem";
 import { connect } from 'react-redux';
+import preloaderUrl from '../loader.gif';
 import { addCase, setValue, switchDisable, deleteItem, changePage, loadFromServer, clearTable, showDetails, changeDetailsCount } from '../Actions';
 
 class TodoList extends React.Component {
@@ -14,8 +15,10 @@ class TodoList extends React.Component {
 
   addCase(e) {
     e.preventDefault();
+    const input = e.target.parentElement.querySelector('input');
     let {dispatch} = this.props;
-    dispatch(addCase());
+    dispatch(addCase(input.value));
+    input.value = "";
   }
 
   setValue(e) {
@@ -45,10 +48,23 @@ class TodoList extends React.Component {
     dispatch(showDetails(e.target.id));
   }
 
+  switchPreloader() {
+    const preloader = document.getElementById('preloader');
+    preloader.classList.contains('active') ? preloader.classList.remove('active') : preloader.classList.add('active');
+  }
+
   loadFromServer() {
     let {dispatch} = this.props;
-    dispatch(loadFromServer());
-  }
+    fetch('/json/records.json')
+      .then((response) => {
+        this.switchPreloader();
+        return response.json();
+      })
+      .then((myJson) => {
+        dispatch(loadFromServer(myJson.records));
+        this.switchPreloader();
+      });
+     }
 
   clearTable() {
     let {dispatch} = this.props;
@@ -76,14 +92,15 @@ class TodoList extends React.Component {
         <header>
           <h2>Список дел</h2>
           <div className="headerForm">
-            <ActionForm setValue={this.setValue.bind(this)} currentWord={props.currentWord} addCase={this.addCase.bind(this)} />
+            <ActionForm addCase={this.addCase.bind(this)} />
             <button className="loadFromServer" onClick={this.loadFromServer.bind(this)}>Загрузить с сервера</button>
             <button className="clearButton" onClick={this.clearTable.bind(this)}>Очистить</button>
-            <select onChange={this.changeDetailsCount.bind(this)}>
+            <select defaultValue={10} onChange={this.changeDetailsCount.bind(this)}>
               <option value="5">5</option>
-              <option selected value="10">10</option>
+              <option value="10">10</option>
               <option value="25">25</option>
               <option value="50">50</option>
+              <option value="100">100</option>
             </select>
           </div>
         </header>
@@ -104,15 +121,18 @@ class TodoList extends React.Component {
           </TableList>
           <Pagination props={props}>
             {(() => {
-              const number = Math.ceil(props.records.length / props.maxItemsOnPage);
+              const num1 = Math.ceil(props.records.length / props.maxItemsOnPage);
+              // const num2 = Math.floor(492 / 28);
+              // const number = num1 > num2 ? num2 : num1;
               let array = [];
-              for (let i = 1; i <= number; i++) {
+              for (let i = 1; i <= num1; i++) {
                 array.push(<PaginationItem i={i} key={i} changePage={this.changePage.bind(this, i)} activePage={props.activePage}/>);
               }
               return array;
             })()}
           </Pagination>
         </main>
+        <img src={preloaderUrl} className="" id="preloader" alt=""/>
       </div>
     )
   }
