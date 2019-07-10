@@ -9,29 +9,19 @@ class CaseDetails extends React.Component {
     super();
   }
 
-  componentWillMount() {
+  changeDescription(e) {
     let {dispatch} = this.props;
-    dispatch(showDetails(this.props.match.params.id));
-  }
-
-  componentWillUnmount() {
-    let {dispatch} = this.props;
-    dispatch(showDetails(false));
-  }
-
-  changeDescription(index, e) {
-    let {dispatch} = this.props;
-    dispatch(changeDescription(index, e.target.value));
+    let id = this.props.records.currentRecord.id;
+    dispatch(changeDescription(e.target.value, id));
   }
 
   render () {
-    let {records} = this.props.records;
+    let {currentRecord} = this.props.records;
+    console.log(currentRecord);
     return (
       <div className="detailsContainer">
         <Link to="/">Назад</Link>
-        {records.map((record, index) => {
-          return <CaseDetail record={record} key={index} changeDescription={this.changeDescription.bind(this, index)}/>
-        })}
+        <CaseDetail record={currentRecord} changeDescription={this.changeDescription.bind(this)}/>
       </div>
     )
   }
@@ -39,7 +29,7 @@ class CaseDetails extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    records: state.details
+    records: state.todo
   }
 }
 

@@ -9,6 +9,7 @@ const LOAD_FROM_SERVER = 'LOAD_FROM_SERVER';
 const CLEAR_TABLE = 'CLEAR_TABLE';
 const SHOW_DETAILS = 'SHOW_DETAILS';
 const CHANGE_DESCRIPTION = 'CHANGE_DESCRIPTION';
+const CHANGE_DETAILS_COUNT = 'CHANGE_DETAILS_COUNT';
 
 export const defaultState = {
   records: [],
@@ -17,6 +18,7 @@ export const defaultState = {
   maxItemsOnPage: 10,
   counter: 1,
   showPage: false,
+  currentRecord: {},
 };
 
 export const types = {
@@ -29,4 +31,5 @@ export const types = {
   CLEAR_TABLE,
   SHOW_DETAILS,
   CHANGE_DESCRIPTION,
+  CHANGE_DETAILS_COUNT,
 };

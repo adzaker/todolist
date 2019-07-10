@@ -52,10 +52,18 @@ export function showDetails(value) {
     value
   }
 }
-export function changeDescription(index, value) {
+
+export function changeDescription(value, id) {
   return {
     type: types.CHANGE_DESCRIPTION,
     value,
-    index
+    id
+  }
+}
+
+export function changeDetailsCount(value) {
+  return {
+    type: types.CHANGE_DETAILS_COUNT,
+    value
   }
 }

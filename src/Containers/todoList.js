@@ -5,7 +5,7 @@ import TableList from "../Components/tableList";
 import Pagination from "../Components/Pagination";
 import PaginationItem from "../Components/PaginationItem";
 import { connect } from 'react-redux';
-import { addCase, setValue, switchDisable, deleteItem, changePage, loadFromServer, clearTable, showDetails } from '../Actions';
+import { addCase, setValue, switchDisable, deleteItem, changePage, loadFromServer, clearTable, showDetails, changeDetailsCount } from '../Actions';
 
 class TodoList extends React.Component {
   constructor() {
@@ -38,9 +38,11 @@ class TodoList extends React.Component {
     dispatch(changePage(number));
   }
 
-  showDetails(index, e) {
+  showDetails(e) {
     e.preventDefault();
-    this.props.history.push(`/items/${index + 1}`);
+    this.props.history.push(`/items/${e.target.id}`);
+    let {dispatch} = this.props;
+    dispatch(showDetails(e.target.id));
   }
 
   loadFromServer() {
@@ -51,6 +53,11 @@ class TodoList extends React.Component {
   clearTable() {
     let {dispatch} = this.props;
     dispatch(clearTable());
+  }
+
+  changeDetailsCount(e) {
+    let {dispatch} = this.props;
+    dispatch(changeDetailsCount(e.target.value));
   }
 
   componentDidMount() {
@@ -70,6 +77,12 @@ class TodoList extends React.Component {
             <ActionForm setValue={this.setValue.bind(this)} currentWord={props.currentWord} addCase={this.addCase.bind(this)} />
             <button className="loadFromServer" onClick={this.loadFromServer.bind(this)}>Загрузить с сервера</button>
             <button className="clearButton" onClick={this.clearTable.bind(this)}>Очистить</button>
+            <select onChange={this.changeDetailsCount.bind(this)}>
+              <option value="5">5</option>
+              <option selected value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
           </div>
         </header>
         <main>
@@ -82,7 +95,7 @@ class TodoList extends React.Component {
                   record={record}
                   switchThis={this.switchDisable.bind(this, index)}
                   deleteThis={this.deleteItem.bind(this, index)}
-                  showDetails={this.showDetails.bind(this, index)} />
+                  showDetails={this.showDetails.bind(this)} />
               }
               return false;
             })}

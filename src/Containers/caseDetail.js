@@ -16,8 +16,7 @@ class CaseDetail extends React.Component {
 
   render () {
     let {record} = this.props;
-
-    return (
+     return (
       <div className="detail">
         <header>
           <h1>
