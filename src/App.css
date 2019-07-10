@@ -85,7 +85,23 @@
   margin-left: auto;
 }
 
-.caseList {
+.caseList.-recordsCount-5 {
+  height: 162px;
+}
+
+.caseList.-recordsCount-10 {
+  height: 297px;
+}
+
+.caseList.-recordsCount-25 {
+  height: 702px;
+}
+
+.caseList.-recordsCount-50 {
+  height: 1350px;
+}
+
+.caseList__table {
   width: 100%;
 }
 

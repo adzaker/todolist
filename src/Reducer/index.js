@@ -59,6 +59,7 @@ export function todo(state = defaultState, action){
       return newState;
     case types.CHANGE_DETAILS_COUNT:
       newState.maxItemsOnPage = action.value;
+      newState.activePage = 1;
       return newState;
     default:
       return state

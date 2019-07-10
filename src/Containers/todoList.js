@@ -53,9 +53,11 @@ class TodoList extends React.Component {
   clearTable() {
     let {dispatch} = this.props;
     dispatch(clearTable());
+    this.props.history.push(`/`);
   }
 
   changeDetailsCount(e) {
+    this.props.history.push(`/#1`);
     let {dispatch} = this.props;
     dispatch(changeDetailsCount(e.target.value));
   }
@@ -86,7 +88,7 @@ class TodoList extends React.Component {
           </div>
         </header>
         <main>
-          <TableList>
+          <TableList maxItemsOnPage={props.maxItemsOnPage}>
             {props.records.map((record, index) => {
               while (index < (props.maxItemsOnPage * props.activePage) && index >= (props.maxItemsOnPage * (props.activePage - 1))) {
                 return <ListItem
