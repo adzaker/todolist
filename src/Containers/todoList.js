@@ -6,7 +6,7 @@ import Pagination from "../Components/Pagination";
 import PaginationItem from "../Components/PaginationItem";
 import { connect } from 'react-redux';
 import preloaderUrl from '../loader.gif';
-import { addCase, setValue, switchDisable, deleteItem, changePage, loadFromServer, clearTable, showDetails, changeDetailsCount, switchPreloader } from '../Actions';
+import { addCase, switchDisable, deleteItem, changePage, loadFromServer, clearTable, showDetails, changeDetailsCount, switchPreloader } from '../Actions';
 
 class TodoList extends React.Component {
   addCase(e) {
@@ -15,11 +15,6 @@ class TodoList extends React.Component {
     let {dispatch} = this.props;
     dispatch(addCase(input.value));
     input.value = "";
-  }
-
-  setValue(e) {
-    let {dispatch} = this.props;
-    dispatch(setValue(e.target.value));
   }
 
   switchDisable(index) {
@@ -89,7 +84,6 @@ class TodoList extends React.Component {
 
   downloadFile() {
     const {records} = this.props.records;
-    // console.log(records.join());
     const jsonObject = {"records":[...records]};
     const a = document.createElement("a");
     a.style.display = "none";
@@ -156,11 +150,9 @@ class TodoList extends React.Component {
           </TableList>
           <Pagination props={props}>
             {(() => {
-              const num1 = Math.ceil(props.records.length / props.maxItemsOnPage);
-              // const num2 = Math.floor(492 / 28);
-              // const number = num1 > num2 ? num2 : num1;
+              const num = Math.ceil(props.records.length / props.maxItemsOnPage);
               let array = [];
-              for (let i = 1; i <= num1; i++) {
+              for (let i = 1; i <= num; i++) {
                 array.push(<PaginationItem i={i} key={i} changePage={this.changePage.bind(this, i)} activePage={props.activePage}/>);
               }
               return array;

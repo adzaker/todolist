@@ -68,6 +68,11 @@
   background: #54606B;
 }
 
+.pagination__item.-active a:hover {
+  background: #bbb;
+  color: #282c34;
+}
+
 .headerForm {
   display: flex;
   height: 32px;

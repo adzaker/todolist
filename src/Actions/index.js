@@ -7,13 +7,6 @@ export function addCase(value) {
   }
 }
 
-export function setValue(value) {
-  return {
-    type: types.SET_VALUE,
-    value
-  }
-}
-
 export function switchDisable(value) {
   return {
     type: types.SWITCH_DISABLE,
