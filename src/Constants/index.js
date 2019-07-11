@@ -17,6 +17,7 @@ export const defaultState = {
   counter: 1,
   showPage: false,
   currentRecord: {},
+  showPreloader: false,
 };
 
 export const types = {

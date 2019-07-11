@@ -133,6 +133,10 @@
   width: 120px;
 }
 
+#file {
+  padding-left: 0;
+}
+
 span.id {
   color: #aaa;
   display: inline-block;
@@ -140,10 +144,18 @@ span.id {
   font-size: 75%;
 }
 
-#preloader {
+.preloader__container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, .5);
 }
 
-#preloader.active {
-  display: block;
+.preloader__container.-active {
+  display: flex;
 }

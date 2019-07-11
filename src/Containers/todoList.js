@@ -6,7 +6,7 @@ import Pagination from "../Components/Pagination";
 import PaginationItem from "../Components/PaginationItem";
 import { connect } from 'react-redux';
 import preloaderUrl from '../loader.gif';
-import { addCase, setValue, switchDisable, deleteItem, changePage, loadFromServer, clearTable, showDetails, changeDetailsCount } from '../Actions';
+import { addCase, setValue, switchDisable, deleteItem, changePage, loadFromServer, clearTable, showDetails, changeDetailsCount, switchPreloader } from '../Actions';
 
 class TodoList extends React.Component {
   addCase(e) {
@@ -45,27 +45,62 @@ class TodoList extends React.Component {
   }
 
   switchPreloader() {
-    const preloader = document.getElementById('preloader');
-    preloader.classList.contains('active') ? preloader.classList.remove('active') : preloader.classList.add('active');
+    let {dispatch} = this.props;
+    dispatch(switchPreloader());
   }
 
-  loadFromServer() {
+  loadFromServer(url) {
     let {dispatch} = this.props;
-    fetch('/json/records.json')
-      .then((response) => {
-        this.switchPreloader();
-        return response.json();
-      })
-      .then((myJson) => {
-        dispatch(loadFromServer(myJson.records));
-        this.switchPreloader();
-      });
-     }
+    dispatch(clearTable());
+    fetch(url)
+    .then((response) => {
+      this.switchPreloader();
+      return response.json();
+    })
+    .then((myJson) => {
+      dispatch(loadFromServer(myJson.records));
+      this.switchPreloader();
+    });
+   }
 
   clearTable() {
     let {dispatch} = this.props;
+    this.switchPreloader();
     dispatch(clearTable());
     this.props.history.push(`/`);
+    setTimeout(() => {
+      this.switchPreloader();
+    }, 200)
+  }
+
+  uploadFile(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    if (!~file.type.indexOf('json')) {
+      return false;
+    }
+    reader.onload = () => {
+      const data = reader.result;
+      this.loadFromServer(data);
+    };
+    reader.readAsDataURL(file);
+    e.target.value = "";
+  }
+
+  downloadFile() {
+    const {records} = this.props.records;
+    // console.log(records.join());
+    const jsonObject = {"records":[...records]};
+    const a = document.createElement("a");
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.href = window.URL.createObjectURL(
+        new Blob([JSON.stringify(jsonObject, null, 2)], {type : 'application/json'})
+    );
+    a.setAttribute('download', 'userRecords.json');
+    a.click();
+    window.URL.revokeObjectURL(a.href);
+    document.body.removeChild(a);
   }
 
   changeDetailsCount(e) {
@@ -89,8 +124,8 @@ class TodoList extends React.Component {
           <h2>Список дел</h2>
           <div className="headerForm">
             <ActionForm addCase={this.addCase.bind(this)} />
-            <button className="loadFromServer" onClick={this.loadFromServer.bind(this)}>Загрузить с сервера</button>
-            <button className="clearButton" onClick={this.clearTable.bind(this)}>Очистить</button>
+            <button className="loadFromServer" onClick={this.loadFromServer.bind(this, '/json/records.json')}>Загрузить пример</button>
+            <button className="clearButton" onClick={this.clearTable.bind(this)}>Очистить таблицу </button>
             <select defaultValue={10} onChange={this.changeDetailsCount.bind(this)}>
               <option value="5">5</option>
               <option value="10">10</option>
@@ -98,6 +133,10 @@ class TodoList extends React.Component {
               <option value="50">50</option>
               <option value="100">100</option>
             </select>
+          </div>
+          <div className="headerForm" style={{marginTop: 24}}>
+            <input type="file" id="file" onChange={this.uploadFile.bind(this)}/>
+            <button className="clearButton" id="download" onClick={this.downloadFile.bind(this)}>Скачать</button>
           </div>
         </header>
         <main>
@@ -128,7 +167,9 @@ class TodoList extends React.Component {
             })()}
           </Pagination>
         </main>
-        <img src={preloaderUrl} className="" id="preloader" alt=""/>
+        <div className={`preloader__container ${props.showPreloader ? '-active' : ''}`}>
+          <img src={preloaderUrl} className="" id="preloader" alt=""/>
+        </div>
       </div>
     )
   }

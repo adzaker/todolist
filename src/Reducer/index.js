@@ -33,6 +33,10 @@ export function todo(state = defaultState, action){
       newState.activePage = action.value;
       return newState;
     case types.LOAD_FROM_SERVER:
+      if (!action.records) {
+        alert('Неверный формат данных');
+        return newState;
+      }
       const receivedRecords = [...action.records];
       let counter = newState.counter;
       let oldRecords = [];
@@ -68,6 +72,10 @@ export function todo(state = defaultState, action){
     case types.CHANGE_DETAILS_COUNT:
       newState.maxItemsOnPage = action.value;
       newState.activePage = 1;
+      return newState;
+    case types.SWITCH_PRELOADER:
+      newState.showPreloader = !newState.showPreloader;
+      console.log(newState.showPreloader);
       return newState;
     default:
       return state
