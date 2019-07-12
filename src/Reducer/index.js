@@ -1,4 +1,4 @@
-import { defaultState, types } from "../Constants";
+import { defaultState, types, alertMessage } from "../Constants";
 import { combineReducers } from 'redux';
 
 export function todo(state = defaultState, action){
@@ -20,7 +20,6 @@ export function todo(state = defaultState, action){
       return newState;
     case types.SWITCH_DISABLE:
       newState.records[action.value].isDisable = !newState.records[action.value].isDisable;
-      newState.newDefaultRecords = [...newState.records];
       return newState;
     case types.DELETE_ITEM:
       newState.records.splice(action.value, 1);
@@ -34,27 +33,7 @@ export function todo(state = defaultState, action){
       return newState;
     case types.LOAD_FROM_SERVER:
       if (!action.records) {
-        alert('Неверный формат данных.\n\n' +
-          'Нужен файл с расширением .json вида' +
-          '{\n' +
-          '  "records": [\n' +
-          '    {\n' +
-          '      "name": "Задача 1",\n' +
-          '      "isDisable": false,\n' +
-          '      "description": "Описание 1"\n' +
-          '    },\n' +
-          '    {\n' +
-          '      "name": "Задача 2",\n' +
-          '      "isDisable": false,\n' +
-          '      "description": "Описание 2"\n' +
-          '    },\n' +
-          '    {\n' +
-          '      "name": "Задача 3",\n' +
-          '      "isDisable": true,\n' +
-          '      "description": "Описание 3"\n' +
-          '    }\n' +
-          '  ]\n' +
-          '}');
+        alert(alertMessage);
         return newState;
       }
       const receivedRecords = [...action.records];
@@ -97,7 +76,6 @@ export function todo(state = defaultState, action){
       return newState;
     case types.SWITCH_PRELOADER:
       newState.showPreloader = !newState.showPreloader;
-      console.log(newState.showPreloader);
       return newState;
     case types.FILTER_LIST:
       if (!action.value.length) {
@@ -106,10 +84,41 @@ export function todo(state = defaultState, action){
         return newState;
       }
       const filteredRecords = newState.newDefaultRecords.filter((record) => {
-        return ~record.name.indexOf(action.value)
+        return record.name.includes(action.value)
       });
       newState.activePage = 1;
       newState.records = [...filteredRecords];
+      return newState;
+    case types.CHANGE_SORTING_TABLE:
+      const sorting = newState.sortingTable;
+      if (action.id.includes(newState.sortingTable.colNumber)) {
+        sorting.directionUp = !sorting.directionUp;
+      } else {
+        sorting.colNumber = action.id.replace('sortingTable-','') - 0;
+      }
+      sorting.directionUp = !action.className.includes('-up');
+      newState.sortingTable = {...sorting};
+      let param = sorting.colNumber === 1 ? 'id' : sorting.colNumber === 2 ? 'name' : 'isDisable';
+      newState.records.sort((a, b) => {
+        return a.id > b.id ? 1 : a.id < b.id ? -1 : 0;
+      });
+      if (sorting.directionUp) {
+        newState.records.sort((a, b) => {
+          if (param === 'name') {
+            return a[param].toLowerCase() < b[param].toLowerCase() ? 1 : a[param].toLowerCase() > b[param].toLowerCase() ? -1 : 0;
+          } else {
+            return a[param] < b[param] ? 1 : a[param] > b[param] ? -1 : 0;
+          }
+        });
+      } else {
+        newState.records.sort((a, b) => {
+          if (param === 'name') {
+            return a[param].toLowerCase() > b[param].toLowerCase() ? 1 : a[param].toLowerCase() < b[param].toLowerCase() ? -1 : 0;
+          } else {
+            return a[param] > b[param] ? 1 : a[param] < b[param] ? -1 : 0;
+          }
+        });
+      }
       return newState;
     default:
       return state

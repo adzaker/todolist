@@ -2,12 +2,13 @@ import React from "react";
 import ActionForm from "../Components/actionForm";
 import ListItem from "../Components/listItem";
 import TableList from "../Components/tableList";
-import Pagination from "../Components/Pagination";
-import PaginationItem from "../Components/PaginationItem";
 import { connect } from 'react-redux';
 import preloaderUrl from '../loader.gif';
-import { addCase, switchDisable, deleteItem, changePage, loadFromServer, clearTable, showDetails, changeDetailsCount, switchPreloader, filterList } from '../Actions';
+import { addCase, switchDisable, deleteItem, changePage, loadFromServer, clearTable, showDetails, changeDetailsCount, switchPreloader, filterList, changeSortingTable } from '../Actions';
 import FilterForm from "../Components/filterForm";
+import NewPagination from "../Components/NewPagination";
+import PaginationArrow from "../Components/PaginationArrow";
+import {alertMessage} from "../Constants";
 
 class TodoList extends React.Component {
   addCase(e) {
@@ -29,8 +30,21 @@ class TodoList extends React.Component {
   }
 
   changePage(number) {
+    let num = 0;
+    if (Number.isInteger(number-0)) {
+      num = number - 0;
+    }
     let {dispatch} = this.props;
-    dispatch(changePage(number));
+    dispatch(changePage(num));
+  }
+
+  changePageInput(e) {
+    if (!Number.isInteger(e.target.value-0)) {
+      return false;
+    }
+    let {dispatch} = this.props;
+    dispatch(changePage(e.target.value - 0));
+    this.props.history.push(`/#${e.target.value - 0}`);
   }
 
   showDetails(e) {
@@ -72,27 +86,11 @@ class TodoList extends React.Component {
   uploadFile(e) {
     const file = e.target.files[0];
     const reader = new FileReader();
-    if (!~file.type.indexOf('json')) {
-      alert('Нужен файл с расширением .json в формате' +
-        '{\n' +
-        '  "records": [\n' +
-        '    {\n' +
-        '      "name": "Задача 1",\n' +
-        '      "isDisable": false,\n' +
-        '      "description": "Описание 1"\n' +
-        '    },\n' +
-        '    {\n' +
-        '      "name": "Задача 2",\n' +
-        '      "isDisable": false,\n' +
-        '      "description": "Описание 2"\n' +
-        '    },\n' +
-        '    {\n' +
-        '      "name": "Задача 3",\n' +
-        '      "isDisable": true,\n' +
-        '      "description": "Описание 3"\n' +
-        '    }\n' +
-        '  ]\n' +
-        '}');
+    if (!e.target.files.length) {
+      return false;
+    }
+    if (!file.type.includes('json')) {
+      alert(alertMessage);
       return false;
     }
     reader.onload = () => {
@@ -130,6 +128,11 @@ class TodoList extends React.Component {
     dispatch(filterList(e.target.value));
   }
 
+  changeSortingTable(e) {
+    let {dispatch} = this.props;
+    dispatch(changeSortingTable(e.target.id, e.target.className));
+  }
+
   componentDidMount() {
     window.addEventListener('hashchange', () => {
       let {dispatch} = this.props;
@@ -147,13 +150,6 @@ class TodoList extends React.Component {
             <ActionForm addCase={this.addCase.bind(this)} />
             <button className="loadFromServer" onClick={this.loadFromServer.bind(this, '/json/records.json')}>Загрузить пример</button>
             <button className="clearButton" onClick={this.clearTable.bind(this)}>Очистить таблицу </button>
-            <select defaultValue={10} onChange={this.changeDetailsCount.bind(this)}>
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
           </div>
           <div className="headerForm" style={{marginTop: 24}}>
             <input type="file" id="file" onChange={this.uploadFile.bind(this)}/>
@@ -161,10 +157,17 @@ class TodoList extends React.Component {
           </div>
           <div className="headerForm" style={{marginTop: 24}}>
             <FilterForm filterList={this.filterList.bind(this)}/>
+            <select defaultValue={10} onChange={this.changeDetailsCount.bind(this)} style={{marginLeft: 'auto'}}>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
           </div>
         </header>
         <main>
-          <TableList maxItemsOnPage={props.maxItemsOnPage}>
+          <TableList maxItemsOnPage={props.maxItemsOnPage} sortingTable={props.sortingTable} changeSortingTable={this.changeSortingTable.bind(this)}>
             {props.records.map((record, index) => {
               while (index < (props.maxItemsOnPage * props.activePage) && index >= (props.maxItemsOnPage * (props.activePage - 1))) {
                 return <ListItem
@@ -178,16 +181,31 @@ class TodoList extends React.Component {
               return false;
             })}
           </TableList>
-          <Pagination props={props}>
-            {(() => {
-              const num = Math.ceil(props.records.length / props.maxItemsOnPage);
-              let array = [];
-              for (let i = 1; i <= num; i++) {
-                array.push(<PaginationItem i={i} key={i} changePage={this.changePage.bind(this, i)} activePage={props.activePage}/>);
-              }
-              return array;
-            })()}
-          </Pagination>
+          <NewPagination props={props} isRecords={props.records.length}>
+            <PaginationArrow
+              changePage={this.changePage.bind(this, 1)}
+              i = {1}
+              direction='1'
+              visibility={props.activePage === 1 ? 'hidden' : 'visible'} />
+            <PaginationArrow
+              changePage={this.changePage.bind(this, props.activePage - 1)}
+              i = {props.activePage - 1}
+              direction='<'
+              visibility={props.activePage === 1 ? 'hidden' : 'visible'} />
+            <li>
+              <input id="pageInput" type="text" value={props.activePage} onChange={this.changePageInput.bind(this)} />
+            </li>
+            <PaginationArrow
+              changePage={this.changePage.bind(this, props.activePage + 1)}
+              i = {props.activePage + 1}
+              direction='>'
+              visibility={props.activePage === Math.ceil(props.records.length / props.maxItemsOnPage) ? 'hidden' : 'visible'} />
+            <PaginationArrow
+              changePage={this.changePage.bind(this, Math.ceil(props.records.length / props.maxItemsOnPage))}
+              i = {Math.ceil(props.records.length / props.maxItemsOnPage)}
+              direction={Math.ceil(props.records.length / props.maxItemsOnPage)}
+              visibility={props.activePage === Math.ceil(props.records.length / props.maxItemsOnPage) ? 'hidden' : 'visible'} />
+          </NewPagination>
         </main>
         <div className={`preloader__container ${props.showPreloader ? '-active' : ''}`}>
           <img src={preloaderUrl} className="" id="preloader" alt=""/>

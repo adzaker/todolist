@@ -30,6 +30,11 @@
 .pagination {
   margin-top: 24px;
   max-width: 100%;
+  display: none;
+}
+
+.pagination.-active {
+  display: block;
 }
 
 .pagination__list {
@@ -38,6 +43,15 @@
   padding: 0;
   margin: 0;
   flex-flow: wrap;
+  justify-content: space-between;
+}
+
+#pageInput {
+  height: 100%;
+  width: 42px;
+  text-align: center;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .pagination__item {
@@ -163,4 +177,16 @@ span.id {
 
 .preloader__container.-active {
   display: flex;
+}
+
+.sortingTable {
+  cursor: pointer;
+}
+
+.sortingTable.-up::after {
+  content:'↑';
+}
+
+.sortingTable.-down::after {
+  content:'↓';
 }

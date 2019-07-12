@@ -10,6 +10,29 @@ const CHANGE_DESCRIPTION = 'CHANGE_DESCRIPTION';
 const CHANGE_DETAILS_COUNT = 'CHANGE_DETAILS_COUNT';
 const SWITCH_PRELOADER = 'SWITCH_PRELOADER';
 const FILTER_LIST = 'FILTER_LIST';
+const CHANGE_SORTING_TABLE = 'CHANGE_SORTING_TABLE';
+
+export const alertMessage = 'Неверный формат данных.\n\n' +
+  'Нужен файл с расширением .json вида' +
+  '{\n' +
+  '  "records": [\n' +
+  '    {\n' +
+  '      "name": "Задача 1",\n' +
+  '      "isDisable": false,\n' +
+  '      "description": "Описание 1"\n' +
+  '    },\n' +
+  '    {\n' +
+  '      "name": "Задача 2",\n' +
+  '      "isDisable": false,\n' +
+  '      "description": "Описание 2"\n' +
+  '    },\n' +
+  '    {\n' +
+  '      "name": "Задача 3",\n' +
+  '      "isDisable": true,\n' +
+  '      "description": "Описание 3"\n' +
+  '    }\n' +
+  '  ]\n' +
+  '}';
 
 export const defaultState = {
   records: [],
@@ -20,6 +43,10 @@ export const defaultState = {
   showPage: false,
   currentRecord: {},
   showPreloader: false,
+  sortingTable: {
+    colNumber: 1,
+    directionUp: false,
+  }
 };
 
 export const types = {
@@ -35,4 +62,5 @@ export const types = {
   CHANGE_DETAILS_COUNT,
   SWITCH_PRELOADER,
   FILTER_LIST,
+  CHANGE_SORTING_TABLE,
 };

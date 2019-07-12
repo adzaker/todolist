@@ -76,3 +76,11 @@ export function filterList(value) {
     value
   }
 }
+
+export function changeSortingTable(id, className) {
+  return {
+    type: types.CHANGE_SORTING_TABLE,
+    id,
+    className
+  }
+}
