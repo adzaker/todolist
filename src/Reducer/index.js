@@ -22,25 +22,30 @@ export function todo(state = defaultState, action){
       let neededRecord = newState.records.filter((record) => {
         return record.id === action.value;
       });
-      // newState.records[action.value].isDisable = !newState.records[action.value].isDisable;
-      neededRecord[0].isDisable = !neededRecord[0].isDisable
+      neededRecord[0].isDisable = !neededRecord[0].isDisable;
       return newState;
     case types.DELETE_ITEM:
-      const recs = [];
-      newState.records.forEach((record) => {
-        console.log(record);
-        console.log(record.id);
-        console.log(action.value);
+      let recs = [];
+      newState.newDefaultRecords.forEach((record) => {
         if (record.id !== action.value) {
           recs.push(record);
         }
       });
-       console.log(recs);
-      newState.records = [...recs];
+      newState.newDefaultRecords = [...recs];
       if (newState.activePage > Math.ceil(newState.records.length / newState.maxItemsOnPage) && newState.activePage > 1) {
         newState.activePage = Math.ceil(newState.records.length / newState.maxItemsOnPage);
       }
-      newState.newDefaultRecords = [...newState.records];
+      if (newState.isFiltering) {
+        recs = [];
+        newState.records.forEach((record) => {
+          if (record.id !== action.value) {
+            recs.push(record);
+          }
+        });
+        newState.records = [...recs];
+      } else {
+        newState.records = [...newState.newDefaultRecords];
+      }
       return newState;
     case types.CHANGE_PAGE:
       if (action.value >= Math.ceil(newState.records.length / newState.maxItemsOnPage)) {
@@ -98,9 +103,11 @@ export function todo(state = defaultState, action){
     case types.FILTER_LIST:
       if (!action.value.length) {
         newState.activePage = 1;
+        newState.isFiltering = false;
         newState.records = [...newState.newDefaultRecords];
         return newState;
       }
+      newState.isFiltering = true;
       const filteredRecords = newState.newDefaultRecords.filter((record) => {
         return record.name.includes(action.value)
       });

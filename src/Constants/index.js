@@ -46,7 +46,8 @@ export const defaultState = {
   sortingTable: {
     colNumber: 1,
     directionUp: false,
-  }
+  },
+  isFiltering: false,
 };
 
 export const types = {
