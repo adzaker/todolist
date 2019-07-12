@@ -9,9 +9,11 @@ const SHOW_DETAILS = 'SHOW_DETAILS';
 const CHANGE_DESCRIPTION = 'CHANGE_DESCRIPTION';
 const CHANGE_DETAILS_COUNT = 'CHANGE_DETAILS_COUNT';
 const SWITCH_PRELOADER = 'SWITCH_PRELOADER';
+const FILTER_LIST = 'FILTER_LIST';
 
 export const defaultState = {
   records: [],
+  newDefaultRecords:[],
   activePage: document.location.hash.length ? document.location.hash.slice(1) - 0 : 1,
   maxItemsOnPage: 10,
   counter: 1,
@@ -32,4 +34,5 @@ export const types = {
   CHANGE_DESCRIPTION,
   CHANGE_DETAILS_COUNT,
   SWITCH_PRELOADER,
+  FILTER_LIST,
 };

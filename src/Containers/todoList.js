@@ -6,7 +6,8 @@ import Pagination from "../Components/Pagination";
 import PaginationItem from "../Components/PaginationItem";
 import { connect } from 'react-redux';
 import preloaderUrl from '../loader.gif';
-import { addCase, switchDisable, deleteItem, changePage, loadFromServer, clearTable, showDetails, changeDetailsCount, switchPreloader } from '../Actions';
+import { addCase, switchDisable, deleteItem, changePage, loadFromServer, clearTable, showDetails, changeDetailsCount, switchPreloader, filterList } from '../Actions';
+import FilterForm from "../Components/filterForm";
 
 class TodoList extends React.Component {
   addCase(e) {
@@ -72,6 +73,26 @@ class TodoList extends React.Component {
     const file = e.target.files[0];
     const reader = new FileReader();
     if (!~file.type.indexOf('json')) {
+      alert('Нужен файл с расширением .json в формате' +
+        '{\n' +
+        '  "records": [\n' +
+        '    {\n' +
+        '      "name": "Задача 1",\n' +
+        '      "isDisable": false,\n' +
+        '      "description": "Описание 1"\n' +
+        '    },\n' +
+        '    {\n' +
+        '      "name": "Задача 2",\n' +
+        '      "isDisable": false,\n' +
+        '      "description": "Описание 2"\n' +
+        '    },\n' +
+        '    {\n' +
+        '      "name": "Задача 3",\n' +
+        '      "isDisable": true,\n' +
+        '      "description": "Описание 3"\n' +
+        '    }\n' +
+        '  ]\n' +
+        '}');
       return false;
     }
     reader.onload = () => {
@@ -83,6 +104,7 @@ class TodoList extends React.Component {
   }
 
   downloadFile() {
+    if (!this.props.records.length) return false;
     const {records} = this.props.records;
     const jsonObject = {"records":[...records]};
     const a = document.createElement("a");
@@ -103,6 +125,11 @@ class TodoList extends React.Component {
     dispatch(changeDetailsCount(e.target.value));
   }
 
+  filterList(e) {
+    let {dispatch} = this.props;
+    dispatch(filterList(e.target.value));
+  }
+
   componentDidMount() {
     window.addEventListener('hashchange', () => {
       let {dispatch} = this.props;
@@ -115,7 +142,7 @@ class TodoList extends React.Component {
     return (
       <div className="List">
         <header>
-          <h2>Список дел</h2>
+          <h2>Список задач</h2>
           <div className="headerForm">
             <ActionForm addCase={this.addCase.bind(this)} />
             <button className="loadFromServer" onClick={this.loadFromServer.bind(this, '/json/records.json')}>Загрузить пример</button>
@@ -131,6 +158,9 @@ class TodoList extends React.Component {
           <div className="headerForm" style={{marginTop: 24}}>
             <input type="file" id="file" onChange={this.uploadFile.bind(this)}/>
             <button className="clearButton" id="download" onClick={this.downloadFile.bind(this)}>Скачать</button>
+          </div>
+          <div className="headerForm" style={{marginTop: 24}}>
+            <FilterForm filterList={this.filterList.bind(this)}/>
           </div>
         </header>
         <main>

@@ -69,3 +69,10 @@ export function switchPreloader(url) {
     url
   }
 }
+
+export function filterList(value) {
+  return {
+    type: types.FILTER_LIST,
+    value
+  }
+}
