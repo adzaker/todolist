@@ -19,14 +19,14 @@ class TodoList extends React.Component {
     input.value = "";
   }
 
-  switchDisable(index) {
+  switchDisable(id) {
     let {dispatch} = this.props;
-    dispatch(switchDisable(index));
+    dispatch(switchDisable(id));
   }
 
-  deleteItem(index) {
+  deleteItem(id) {
     let {dispatch} = this.props;
-    dispatch(deleteItem(index));
+    dispatch(deleteItem(id));
   }
 
   changePage(number) {
@@ -174,8 +174,8 @@ class TodoList extends React.Component {
                   key={index}
                   num={index + 1}
                   record={record}
-                  switchThis={this.switchDisable.bind(this, index)}
-                  deleteThis={this.deleteItem.bind(this, index)}
+                  switchThis={this.switchDisable.bind(this, record.id)}
+                  deleteThis={this.deleteItem.bind(this, record.id)}
                   showDetails={this.showDetails.bind(this)} />
               }
               return false;

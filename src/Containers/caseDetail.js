@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 class CaseDetail extends React.Component {
   showIsDisable(isDisable) {
     if (!isDisable) {
-      return <div style={{color: 'red'}}>Не выполнен</div>;
+      return <div style={{color: 'red'}}>В работе</div>;
     } else {
-      return <div style={{color: 'green'}}>Выполнен</div>;
+      return <div style={{color: 'green'}}>Выполнена</div>;
     }
   }
 
@@ -21,8 +21,11 @@ class CaseDetail extends React.Component {
           </h1>
         </header>
         <main>
-          {this.showIsDisable(record.isDisable)}
-          <textarea type="textarea" editable="true" value={record.description} onChange={this.props.changeDescription}/>
+          <div className="detail__subHeader">
+            {this.showIsDisable(record.isDisable)}
+            <button onClick={this.props.switchDisable}>{!record.isDisable ? 'Завершить' : 'Вернуть в работу'}</button>
+          </div>
+          <textarea className="description" type="textarea" editable="true" value={record.description} onChange={this.props.changeDescription}/>
         </main>
       </div>
     )

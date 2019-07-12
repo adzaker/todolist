@@ -19,17 +19,35 @@ export function todo(state = defaultState, action){
       newState.newDefaultRecords = [...newState.records];
       return newState;
     case types.SWITCH_DISABLE:
-      newState.records[action.value].isDisable = !newState.records[action.value].isDisable;
+      let neededRecord = newState.records.filter((record) => {
+        return record.id === action.value;
+      });
+      // newState.records[action.value].isDisable = !newState.records[action.value].isDisable;
+      neededRecord[0].isDisable = !neededRecord[0].isDisable
       return newState;
     case types.DELETE_ITEM:
-      newState.records.splice(action.value, 1);
+      const recs = [];
+      newState.records.forEach((record) => {
+        console.log(record);
+        console.log(record.id);
+        console.log(action.value);
+        if (record.id !== action.value) {
+          recs.push(record);
+        }
+      });
+       console.log(recs);
+      newState.records = [...recs];
       if (newState.activePage > Math.ceil(newState.records.length / newState.maxItemsOnPage) && newState.activePage > 1) {
         newState.activePage = Math.ceil(newState.records.length / newState.maxItemsOnPage);
       }
       newState.newDefaultRecords = [...newState.records];
       return newState;
     case types.CHANGE_PAGE:
-      newState.activePage = action.value;
+      if (action.value >= Math.ceil(newState.records.length / newState.maxItemsOnPage)) {
+        newState.activePage = Math.ceil(newState.records.length / newState.maxItemsOnPage)
+      } else {
+        newState.activePage = action.value;
+      }
       return newState;
     case types.LOAD_FROM_SERVER:
       if (!action.records) {

@@ -190,3 +190,16 @@ span.id {
 .sortingTable.-down::after {
   content:'↓';
 }
+
+.detail__subHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.description {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 60px;
+}

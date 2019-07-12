@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { changeDescription } from "../Actions";
+import { changeDescription, switchDisable } from "../Actions";
 import CaseDetail from "./caseDetail";
 import { Link } from "react-router-dom";
 
@@ -11,13 +11,19 @@ class CaseDetails extends React.Component {
     dispatch(changeDescription(e.target.value, id));
   }
 
+  switchDisable() {
+    let id = this.props.records.currentRecord.id;
+    let {dispatch} = this.props;
+    dispatch(switchDisable(id));
+  }
+
   render () {
     let {currentRecord} = this.props.records;
     console.log(currentRecord);
     return (
       <div className="detailsContainer">
         <Link to="/">Назад</Link>
-        <CaseDetail record={currentRecord} changeDescription={this.changeDescription.bind(this)}/>
+        <CaseDetail switchDisable={this.switchDisable.bind(this)} record={currentRecord} changeDescription={this.changeDescription.bind(this)}/>
       </div>
     )
   }
