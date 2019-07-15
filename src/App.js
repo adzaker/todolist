@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import { Provider } from 'react-redux'
 import configureStore from './Store/index'
 import TodoList from "./Containers/todoList";

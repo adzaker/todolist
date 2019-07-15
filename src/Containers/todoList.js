@@ -9,6 +9,8 @@ import FilterForm from "../Components/filterForm";
 import NewPagination from "../Components/NewPagination";
 import PaginationArrow from "../Components/PaginationArrow";
 import {alertMessage} from "../Constants";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileDownload, faFileUpload, faSync } from '@fortawesome/free-solid-svg-icons';
 
 class TodoList extends React.Component {
   addCase(e) {
@@ -148,21 +150,30 @@ class TodoList extends React.Component {
           <h2>Список задач</h2>
           <div className="headerForm">
             <ActionForm addCase={this.addCase.bind(this)} />
-            <button className="loadFromServer" onClick={this.loadFromServer.bind(this, '/json/records.json')}>Загрузить пример</button>
-            <button className="clearButton" onClick={this.clearTable.bind(this)}>Очистить таблицу </button>
+            <button className="tableButton" onClick={this.loadFromServer.bind(this, '/json/records.json')}>
+              <span className="buttonTitle">Загрузить пример</span>
+              <FontAwesomeIcon icon={faFileUpload} />
+            </button>
+            <button className="tableButton" onClick={this.clearTable.bind(this)}>
+              <span className="buttonTitle">Очистить таблицу</span>
+              <FontAwesomeIcon icon={faSync} />
+            </button>
           </div>
           <div className="headerForm" style={{marginTop: 24}}>
             <input type="file" id="file" onChange={this.uploadFile.bind(this)}/>
-            <button className="clearButton" id="download" onClick={this.downloadFile.bind(this)}>Скачать</button>
+            <button className="tableButton" id="download"  onClick={this.downloadFile.bind(this)}>
+              <span className="buttonTitle">Скачать</span>
+              <FontAwesomeIcon icon={faFileDownload} />
+            </button>
           </div>
           <div className="headerForm" style={{marginTop: 24}}>
             <FilterForm filterList={this.filterList.bind(this)}/>
             <select defaultValue={10} onChange={this.changeDetailsCount.bind(this)} style={{marginLeft: 'auto'}}>
               <option value="5">5</option>
               <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
+              {props.records.length >= 25 && <option value="25">25</option>}
+              {props.records.length >= 50 && <option value="25">50</option>}
+              {props.records.length >= 100 && <option value="25">100</option>}
             </select>
           </div>
         </header>
@@ -185,12 +196,12 @@ class TodoList extends React.Component {
             <PaginationArrow
               changePage={this.changePage.bind(this, 1)}
               i = {1}
-              direction='1'
+              content='1'
               visibility={props.activePage === 1 ? 'hidden' : 'visible'} />
             <PaginationArrow
               changePage={this.changePage.bind(this, props.activePage - 1)}
               i = {props.activePage - 1}
-              direction='<'
+              content='chevron-left'
               visibility={props.activePage === 1 ? 'hidden' : 'visible'} />
             <li>
               <input id="pageInput" type="text" value={props.activePage} onChange={this.changePageInput.bind(this)} />
@@ -198,12 +209,12 @@ class TodoList extends React.Component {
             <PaginationArrow
               changePage={this.changePage.bind(this, props.activePage + 1)}
               i = {props.activePage + 1}
-              direction='>'
+              content='chevron-right'
               visibility={props.activePage === Math.ceil(props.records.length / props.maxItemsOnPage) ? 'hidden' : 'visible'} />
             <PaginationArrow
               changePage={this.changePage.bind(this, Math.ceil(props.records.length / props.maxItemsOnPage))}
               i = {Math.ceil(props.records.length / props.maxItemsOnPage)}
-              direction={Math.ceil(props.records.length / props.maxItemsOnPage)}
+              content={Math.ceil(props.records.length / props.maxItemsOnPage)}
               visibility={props.activePage === Math.ceil(props.records.length / props.maxItemsOnPage) ? 'hidden' : 'visible'} />
           </NewPagination>
         </main>

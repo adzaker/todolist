@@ -3,23 +3,7 @@
   margin: 3.5rem;
   width: 100%;
   max-width: 580px;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 16px;
 }
 
 .disable {
@@ -31,10 +15,10 @@
   margin-top: 24px;
   max-width: 100%;
   display: none;
-}
 
-.pagination.-active {
-  display: block;
+  &.-active {
+    display: block;
+  }
 }
 
 .List {
@@ -62,33 +46,33 @@
   min-width: 32px;
   width: 32px;
   height: 32px;
-}
 
-.pagination__item a {
-  color: #bbb;
-  text-decoration: none;
-  background: #282c34;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #54606B;
-  font-size: 12px;
-}
+  a {
+    color: #bbb;
+    text-decoration: none;
+    background: #282c34;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #54606B;
+    font-size: 12px;
 
-.pagination__item.-active a {
-  background: #bbb;
-  color: #282c34;
-}
+    &:hover {
+      background: #54606B;
+    }
+  }
 
-.pagination__item a:hover {
-  background: #54606B;
-}
+  &.-active a {
+    background: #bbb;
+    color: #282c34;
 
-.pagination__item.-active a:hover {
-  background: #bbb;
-  color: #282c34;
+    &:hover {
+      background: #bbb;
+      color: #282c34;
+    }
+  }
 }
 
 .headerForm {
@@ -96,15 +80,15 @@
   height: 32px;
   justify-content: flex-start;
   align-items: stretch;
-}
 
-.headerForm form {
-  display: flex;
-  align-items: stretch;
-}
+  form {
+    display: flex;
+    align-items: stretch;
+  }
 
-.headerForm input {
-  padding-left: 8px;
+  input {
+    padding-left: 8px;
+  }
 }
 
 .loadFromServer,
@@ -112,28 +96,38 @@
   margin-left: auto;
 }
 
-.caseList.-recordsCount-5 {
-  height: 162px;
+@mixin setMaxHeight($count) {
+  &.-recordsCount-#{$count} {
+    height: ($count + 1)*32+px;
+  }
 }
 
-.caseList.-recordsCount-10 {
-  height: 297px;
-}
-
-.caseList.-recordsCount-25 {
-  height: 702px;
-}
-
-.caseList.-recordsCount-50 {
-  height: 1380px;
-}
-
-.caseList.-recordsCount-100 {
-  height: 2760px;
+.caseList {
+  @for $i from 1 to 21 {
+    $step: 5;
+    @include setMaxHeight($i * $step);
+  }
 }
 
 .caseList__table {
   width: 100%;
+  border-collapse: collapse;
+
+  td, th {
+    padding: 0;
+    height: 32px;
+  }
+
+  .caseList__item {
+    &:nth-child(2n) {
+      background-color: #eee;
+    }
+
+    td:first-child,
+    th:first-child {
+      padding-left: 4px;
+    }
+  }
 }
 
 .caseList button {
@@ -177,22 +171,22 @@ span.id {
   justify-content: center;
   align-items: center;
   background-color: rgba(255, 255, 255, .5);
-}
 
-.preloader__container.-active {
-  display: flex;
+  &.-active {
+    display: flex;
+  }
 }
 
 .sortingTable {
   cursor: pointer;
-}
 
-.sortingTable.-up::after {
-  content:'↑';
-}
+  &.-up::after {
+    content:'↑';
+  }
 
-.sortingTable.-down::after {
-  content:'↓';
+  &.-down::after {
+    content:'↓';
+  }
 }
 
 .detail__subHeader {
@@ -206,4 +200,20 @@ span.id {
   min-width: 100%;
   max-width: 100%;
   min-height: 60px;
+}
+
+.tableButton {
+  background-color: #282c34;
+  border: 1px solid #54606B;
+  color: #eee;
+  margin-left: auto;
+
+  &.ml-0 {
+    margin-left: 0;
+  }
+}
+
+.buttonTitle {
+  display: inline-block;
+  padding-right: 6px;
 }
