@@ -1,3 +1,5 @@
+@import "scss/variables";
+
 .App {
   text-align: left;
   margin: 3.5rem;
@@ -42,35 +44,36 @@
   box-sizing: border-box;
 }
 
+.coloredInput {
+  border: 1px solid darken($brown, 20%);
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+  color: darken($gray, 20%);
+  background-color: lighten($brown, 42.5%);
+}
+
 .pagination__item {
   min-width: 32px;
   width: 32px;
   height: 32px;
 
   a {
-    color: #bbb;
     text-decoration: none;
-    background: #282c34;
+    background: darken($brown, 20%);
+    color: $light;
+    font-weight: bold;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #54606B;
+    border: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+    border-radius: 2px;
     font-size: 12px;
 
     &:hover {
-      background: #54606B;
-    }
-  }
-
-  &.-active a {
-    background: #bbb;
-    color: #282c34;
-
-    &:hover {
-      background: #bbb;
-      color: #282c34;
+      background: darken($brown, 10%);
     }
   }
 }
@@ -116,16 +119,23 @@
   td, th {
     padding: 0;
     height: 32px;
+
+    a {
+      color: darken($gray, 10%);
+    }
   }
 
   .caseList__item {
+    background-color: lighten($brown, 38.5%);
+
     &:nth-child(2n) {
-      background-color: #eee;
+      background-color: lighten($brown, 42.5%);
     }
 
     td:first-child,
     th:first-child {
       padding-left: 4px;
+      width: 64px;
     }
   }
 }
@@ -155,7 +165,7 @@
 }
 
 span.id {
-  color: #aaa;
+  color: $light;
   display: inline-block;
   padding-right: 12px;
   font-size: 75%;
@@ -179,14 +189,7 @@ span.id {
 
 .sortingTable {
   cursor: pointer;
-
-  &.-up::after {
-    content:'↑';
-  }
-
-  &.-down::after {
-    content:'↓';
-  }
+  white-space: nowrap;
 }
 
 .detail__subHeader {
@@ -203,14 +206,23 @@ span.id {
 }
 
 .tableButton {
-  background-color: #282c34;
-  border: 1px solid #54606B;
-  color: #eee;
+  background-color: darken($brown, 20%);
+  border: none;
+  box-shadow: 0 1px 3px rgba($dark, .2);
+  color: $light;
   margin-left: auto;
+  border-radius: 2px;
+  cursor: pointer;
 
   &.ml-0 {
     margin-left: 0;
+    border-radius: 0 2px 2px 0;
   }
+
+  &:hover {
+    background: darken($brown, 10%);
+  }
+
 }
 
 .buttonTitle {

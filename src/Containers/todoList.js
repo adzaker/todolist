@@ -168,7 +168,7 @@ class TodoList extends React.Component {
           </div>
           <div className="headerForm" style={{marginTop: 24}}>
             <FilterForm filterList={this.filterList.bind(this)}/>
-            <select defaultValue={10} onChange={this.changeDetailsCount.bind(this)} style={{marginLeft: 'auto'}}>
+            <select defaultValue={10} onChange={this.changeDetailsCount.bind(this)} style={{marginLeft: 'auto'}} className="coloredInput">
               <option value="5">5</option>
               <option value="10">10</option>
               {props.records.length >= 25 && <option value="25">25</option>}
@@ -204,7 +204,7 @@ class TodoList extends React.Component {
               content='chevron-left'
               visibility={props.activePage === 1 ? 'hidden' : 'visible'} />
             <li>
-              <input id="pageInput" type="text" value={props.activePage} onChange={this.changePageInput.bind(this)} />
+              <input id="pageInput" type="text" className="coloredInput" value={props.activePage} onChange={this.changePageInput.bind(this)} />
             </li>
             <PaginationArrow
               changePage={this.changePage.bind(this, props.activePage + 1)}

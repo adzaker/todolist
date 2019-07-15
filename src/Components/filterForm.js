@@ -3,7 +3,7 @@ class FilterForm extends React.Component {
   render () {
     return (
       <form>
-        <input type="text" placeholder="Фильтр" id="filter" onKeyUp={this.props.filterList}/>
+        <input type="text" className="coloredInput"  placeholder="Фильтр" id="filter" onKeyUp={this.props.filterList}/>
       </form>
     )
   }
