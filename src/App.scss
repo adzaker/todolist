@@ -1,4 +1,5 @@
 @import "scss/variables";
+@import "scss/mixins";
 
 .App {
   text-align: left;
@@ -50,6 +51,14 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
   color: darken($gray, 20%);
   background-color: lighten($brown, 42.5%);
+
+  &#newCase {
+    border-radius: 2px 0 0 2px;
+
+    & + button {
+      border-radius: 0 2px 2px 0;
+    }
+  }
 }
 
 .pagination__item {
@@ -99,12 +108,6 @@
   margin-left: auto;
 }
 
-@mixin setMaxHeight($count) {
-  &.-recordsCount-#{$count} {
-    height: ($count + 1)*32+px;
-  }
-}
-
 .caseList {
   @for $i from 1 to 21 {
     $step: 5;
@@ -125,11 +128,17 @@
     }
   }
 
+  th {
+    color: darken($gray, 20%);
+  }
+
   .caseList__item {
     background-color: lighten($brown, 38.5%);
+    border-bottom: 1px solid lighten($brown, 38.5%);
 
     &:nth-child(2n) {
       background-color: lighten($brown, 42.5%);
+      border-bottom: 1px solid lighten($brown, 42.5%);
     }
 
     td:first-child,
@@ -142,6 +151,10 @@
 
 .caseList button {
   width: 100%;
+
+  &.deleteButton {
+    @include tableButton();
+  }
 }
 
 .width-24 {
@@ -158,10 +171,6 @@
 
 .width-90 {
   width: 120px;
-}
-
-#file {
-  padding-left: 0;
 }
 
 span.id {
@@ -206,26 +215,24 @@ span.id {
 }
 
 .tableButton {
-  background-color: darken($brown, 20%);
-  border: none;
-  box-shadow: 0 1px 3px rgba($dark, .2);
-  color: $light;
-  margin-left: auto;
-  border-radius: 2px;
-  cursor: pointer;
-
-  &.ml-0 {
-    margin-left: 0;
-    border-radius: 0 2px 2px 0;
-  }
-
-  &:hover {
-    background: darken($brown, 10%);
-  }
-
+  @include tableButton();
 }
 
 .buttonTitle {
   display: inline-block;
   padding-right: 6px;
+}
+
+
+#file {
+  padding-left: 0;
+  opacity: 0;
+  position: absolute;
+  left: -9999px;
+
+  & ~ label {
+    @include tableButton();
+
+    margin-left: 0;
+  }
 }

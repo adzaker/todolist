@@ -104,7 +104,8 @@ class TodoList extends React.Component {
   }
 
   downloadFile() {
-    if (!this.props.records.length) return false;
+    console.log(this.props.records.records);
+    if (!this.props.records.records.length) return false;
     const {records} = this.props.records;
     const jsonObject = {"records":[...records]};
     const a = document.createElement("a");
@@ -132,7 +133,8 @@ class TodoList extends React.Component {
 
   changeSortingTable(e) {
     let {dispatch} = this.props;
-    dispatch(changeSortingTable(e.target.id, e.target.className));
+    const target = e.target.tagName.toLowerCase() === 'span' ? e.target : e.target.closest('span');
+    dispatch(changeSortingTable(target.id, target.className));
   }
 
   componentDidMount() {
@@ -161,6 +163,10 @@ class TodoList extends React.Component {
           </div>
           <div className="headerForm" style={{marginTop: 24}}>
             <input type="file" id="file" onChange={this.uploadFile.bind(this)}/>
+            <label htmlFor="file">
+              <span className="buttonTitle">Загрузить файл</span>
+              <FontAwesomeIcon icon={faFileUpload} />
+            </label>
             <button className="tableButton" id="download"  onClick={this.downloadFile.bind(this)}>
               <span className="buttonTitle">Скачать</span>
               <FontAwesomeIcon icon={faFileDownload} />
@@ -172,8 +178,8 @@ class TodoList extends React.Component {
               <option value="5">5</option>
               <option value="10">10</option>
               {props.records.length >= 25 && <option value="25">25</option>}
-              {props.records.length >= 50 && <option value="25">50</option>}
-              {props.records.length >= 100 && <option value="25">100</option>}
+              {props.records.length >= 50 && <option value="50">50</option>}
+              {props.records.length >= 100 && <option value="100">100</option>}
             </select>
           </div>
         </header>

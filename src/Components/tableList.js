@@ -13,19 +13,19 @@ class TableList extends React.Component {
             <th className="width-24">
               <span className={`sortingTable ${filterCol === 1 ? filterDir : '-down'}`} onClick={this.props.changeSortingTable} id="sortingTable-1">
                 №
-                {filterCol === 1 ? <FontAwesomeIcon className={filterCol === 1 ? filterDir : '-down'} icon={faCaretUp}/> : <FontAwesomeIcon icon={faCaretDown}/>}
+                <FontAwesomeIcon icon={filterCol !== 1 ? faCaretDown : filterCol === 1 && filterDir === '-down' ? faCaretDown : faCaretUp} />
               </span>
             </th>
             <th className="width-full">
               <span className={`sortingTable ${filterCol === 2 ? filterDir : '-down'}`} onClick={this.props.changeSortingTable} id="sortingTable-2">
                 Название
-                {filterCol === 2 ? <FontAwesomeIcon className={filterCol === 2 ? filterDir : '-down'} icon={faCaretUp}/> : <FontAwesomeIcon icon={faCaretDown}/>}
+                 <FontAwesomeIcon icon={filterCol !== 2 ? faCaretDown : filterCol === 2 && filterDir === '-down' ? faCaretDown : faCaretUp} />
               </span>
             </th>
             <th className="width-90">
               <span className={`sortingTable ${filterCol === 3 ? filterDir : '-down'}`} onClick={this.props.changeSortingTable} id="sortingTable-3">
                 Готовность
-                {filterCol === 3 ? <FontAwesomeIcon className={filterCol === 3 ? filterDir : '-down'} icon={faCaretUp}/> : <FontAwesomeIcon icon={faCaretDown}/>}
+                 <FontAwesomeIcon icon={filterCol !== 3 ? faCaretDown : filterCol === 3 && filterDir === '-down' ? faCaretDown : faCaretUp} />
               </span>
             </th>
             <th className="width-75">
