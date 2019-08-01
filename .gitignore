@@ -5,6 +5,13 @@
 /.pnp
 .pnp.js
 
+# client
+client/node_modules
+
+# server
+react-backend/json
+react-backend/node_modules
+
 # testing
 /coverage
 

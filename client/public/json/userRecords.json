@@ -1,0 +1,34 @@
+{
+  "records": [
+    {
+      "name": "тест 1",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "name": "тест 2",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "name": "тест 3",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "name": "тест 4",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "name": "тест 5",
+      "isDisable": false,
+      "description": "Описание"
+    },
+    {
+      "name": "тест 6",
+      "isDisable": false,
+      "description": "Описание"
+    }
+  ]
+}
