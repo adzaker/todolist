@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "forever stop 0 && forever start bin/www && cd ../client && npm start",
+    "start": "forever start bin/www && cd ../client && npm start",
     "stop": "forever stop 0"
   },
   "dependencies": {
