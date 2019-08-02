@@ -148,6 +148,10 @@ export function todo(state = defaultState, action){
         });
       }
       return newState;
+    case types.CHANGE_THEME:
+      newState.theme = action.value;
+      console.log(newState);
+      return newState;
     default:
       return state
   }

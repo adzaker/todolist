@@ -10,7 +10,7 @@ import NewPagination from "../Components/NewPagination";
 import PaginationArrow from "../Components/PaginationArrow";
 import {alertMessage} from "../Constants";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileDownload, faFileUpload, faSync, faDownload, faUpload, faTable } from '@fortawesome/free-solid-svg-icons';
+import { faFileDownload, faFileUpload, faSync, faDownload, faUpload } from '@fortawesome/free-solid-svg-icons';
 
 class TodoList extends React.Component {
   addCase(e) {
@@ -220,7 +220,7 @@ class TodoList extends React.Component {
   render () {
     let props = this.props.records;
     return (
-      <div className="List">
+      <div className={`List ${props.theme}`}>
         <header>
           <h2>Список задач</h2>
           <div className="headerForm">
@@ -253,14 +253,13 @@ class TodoList extends React.Component {
           </div>
           {props.secretStringValue.length > 0 && <div className="headerForm">
             <label htmlFor="secretString">Ваш идентификатор:</label>
-            <input id="secretString" type="text" defaultValue={props.secretStringValue} readonly="readonly" className="coloredInput"/>
+            <input id="secretString" type="text" defaultValue={props.secretStringValue} readOnly="readonly" className="coloredInput"/>
           </div>}
           <div className="headerForm">
             <FilterForm filterList={this.filterList.bind(this)}/>
             <ActionForm addCase={this.addCase.bind(this)} />
-            {/*<button className="tableButton" onclick={this.loadFromServer.bind(this, '/testrecords')}>*/}
+            {/*<button className="tableButton" onClick={this.loadFromServer.bind(this, '/testrecords')}>*/}
             {/*  <span className="buttonTitle">Загрузить пример</span>*/}
-            {/*  <FontAwesomeIcon icon={faTable}/>*/}
             {/*</button>*/}
             <select defaultValue={10} onChange={this.changeDetailsCount.bind(this)} className="coloredInput -select">
               <option value="5">5</option>

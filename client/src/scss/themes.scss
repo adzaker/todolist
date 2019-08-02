@@ -1,0 +1,35 @@
+.themeChanger {
+  margin-left: 16px;
+}
+
+.themeSwitcher {
+  display: inline-flex;
+  height: 48px;
+  width: auto;
+  position: relative;
+  background-color: $dark;
+}
+
+.theme {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  transition: opacity .2s ease;
+
+  @each $name, $value in $themes {
+    &.-#{$name} {
+      background-color: $value;
+    }
+  }
+
+  &.-nCage {
+    background-color: white;
+    background-image: url("images/nCage.png");
+    background-size: cover;
+  }
+
+  &:hover {
+    opacity: .7;
+  }
+}
+

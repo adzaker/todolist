@@ -1,11 +1,12 @@
 @import "scss/variables";
 @import "scss/mixins";
+@import "scss/themes";
 
 .App {
   text-align: left;
   margin: 3.5rem;
   width: 100%;
-  max-width: 654px;
+  max-width: 686px;
   font-size: 16px;
 }
 
@@ -24,8 +25,121 @@
   }
 }
 
-.List {
+.List,
+.detailsContainer {
   position: relative;
+  padding: 16px;
+
+  @each $name, $value in $themes {
+      &.-#{$name} {
+        .coloredInput {
+          border: 2px solid darken($value, 20%);
+            @if $name == "dark" {
+              color: $light;
+            }
+            @else {
+              color: $dark;
+            }
+          background-color: lighten($value, 42.5%);
+
+          &::placeholder {
+            @if $name == "dark" {
+              color: lighten($gray, 50%);
+            }
+            @else {
+              color: darken($gray, 5%);
+            }
+          }
+        }
+
+        a {
+          @if $name == "dark" {
+            color: lighten($gray, 47.5%);
+          }
+          @else {
+            color: darken($gray, 5%);
+          }
+        }
+
+        .pagination__item {
+          &:hover,
+          a {
+            background: darken($value, 20%);
+            @if $name == "light" {
+              color: $dark;
+            }
+            @else {
+              color: $light;
+            }
+          }
+        }
+
+        .caseList__item {
+          background-color: lighten($value, 38.5%);
+          border-bottom: 1px solid lighten($value, 38.5%);
+
+          &:nth-child(2n) {
+            background-color: lighten($value, 42.5%);
+            border-bottom: 1px solid lighten($value, 42.5%);
+          }
+        }
+
+        .checkItem ~ label {
+          border: 2px solid darken($value, 20%);
+
+          svg path {
+            fill: darken($value, 20%);
+          }
+        }
+
+      .tableButton {
+        background-color: darken($value, 20%);
+        box-shadow: 0 1px 3px rgba($dark, .2);
+
+          @if $name == "light" {
+            color: $dark;
+          }
+          @else {
+            color: $light;
+          }
+        &:hover {
+          background: darken($value, 10%);
+        }
+      }
+      @if $name == "nCage" {
+        * {
+          opacity: .92;
+          transition: all .1s ease;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+
+        background-image: url("images/nCage-background.jpg");
+        background-size: cover;
+        background-position: 50%;
+      }
+    }
+  }
+}
+
+.tableButton {
+  border: none;
+  margin-left: auto;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 32px;
+  padding: 0 10px;
+  transition: all .12s ease;
+  box-sizing: border-box;
+  font-family: Roboto, Arial, sans-serif;
+
+  &.ml-0 {
+    margin-left: 0;
+    border-radius: 0 2px 2px 0;
+  }
 }
 
 .pagination__list {
@@ -80,7 +194,7 @@
 }
 
 #newCase {
-  margin-left: 14px;
+  margin-left: 12px;
   width: 220px;
 
     & + button {
@@ -149,10 +263,6 @@
   }
 }
 
-a {
-  color: darken($gray, 10%);
-}
-
 .caseList__table {
   width: 100%;
   border-collapse: collapse;
@@ -190,7 +300,7 @@ a {
   width: 100%;
 
   &.deleteButton {
-    @include tableButton();
+    @extend .tableButton;
   }
 }
 
@@ -263,7 +373,7 @@ span.id {
 }
 
 .tableButton {
-  @include tableButton();
+  @extend .tableButton;
 }
 
 .buttonTitle {
@@ -279,7 +389,7 @@ span.id {
   left: -9999px;
 
   & ~ label {
-    @include tableButton();
+    @extend .tableButton;
 
     margin-left: 0;
   }

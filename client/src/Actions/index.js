@@ -91,3 +91,10 @@ export function createSecretString(string) {
     string
   }
 }
+
+export function changeTheme(value) {
+  return {
+    type: types.CHANGE_THEME,
+    value
+  }
+}

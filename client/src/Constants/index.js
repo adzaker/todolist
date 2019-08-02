@@ -13,6 +13,7 @@ const FILTER_LIST = 'FILTER_LIST';
 const CHANGE_SORTING_TABLE = 'CHANGE_SORTING_TABLE';
 const CREATE_SECRET_STRING = 'CREATE_SECRET_STRING';
 const LOAD_SAVED_FILE = 'LOAD_SAVED_FILE';
+const CHANGE_THEME = 'CHANGE_THEME';
 
 export const alertMessage = 'Неверный формат данных.\n\n' +
   'Нужен файл с расширением .json вида' +
@@ -51,6 +52,7 @@ export const defaultState = {
   },
   isFiltering: false,
   secretStringValue: '',
+  theme: '-blue',
 };
 
 export const types = {
@@ -69,4 +71,5 @@ export const types = {
   CHANGE_SORTING_TABLE,
   CREATE_SECRET_STRING,
   LOAD_SAVED_FILE,
+  CHANGE_THEME,
 };

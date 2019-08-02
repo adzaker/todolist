@@ -1,6 +1,25 @@
 $red: #fa292a;
 $green: #0f9d0b;
-$primary: #4564b8;
+$blue: #4564b8;
 $gray: #667076;
-$light: #fff;
-$dark: #151617;
+$light: #f0f0f0;
+$dark: #333;
+$brown: #b79267;
+
+$primary: $blue;
+$secondary: $light;
+
+$blueTheme: $blue;
+$lightTheme: $light;
+$darkTheme: $dark;
+$redTheme: $red;
+
+$themes: (
+  "blue": $blueTheme,
+  "light": $lightTheme,
+  "dark": $darkTheme,
+  "red": $redTheme,
+  "nCage": $brown,
+  "green": $green,
+)
+

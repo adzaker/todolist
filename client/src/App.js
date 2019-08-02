@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import configureStore from './Store/index'
 import TodoList from "./Containers/todoList";
 import CaseDetails from "./Containers/caseDetails";
+import ThemeChanger from "./Containers/themeChanger";
 import { BrowserRouter } from 'react-router-dom';
 import { Switch, Route } from 'react-router-dom'
 
@@ -22,6 +23,9 @@ class App extends React.Component {
       <Provider store={store}>
         <BrowserRouter>
           <div className="App">
+            <Switch>
+              <Route path = '/' component ={ThemeChanger} />
+            </Switch>
             <Switch>
               <Route exact path='/' component={TodoList}/>
               <Route exact path='/items/' component={CaseDetails}/>

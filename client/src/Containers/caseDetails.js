@@ -21,7 +21,7 @@ class CaseDetails extends React.Component {
     let {currentRecord} = this.props.records;
     console.log(currentRecord);
     return (
-      <div className="detailsContainer">
+      <div className={`detailsContainer ${this.props.records.theme}`}>
         <Link to="/">Назад</Link>
         <CaseDetail switchDisable={this.switchDisable.bind(this)} record={currentRecord} changeDescription={this.changeDescription.bind(this)}/>
       </div>
